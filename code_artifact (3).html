@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мария Калугина | Художник-преподаватель</title>
+    
     <!-- Подключаем Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Подключаем иконки Lucide -->
@@ -33,6 +34,7 @@
         .masonry-item {
             break-inside: avoid;
             margin-bottom: 1.5rem;
+            display: block; /* Предотвращает разрывы элементов между колонками */
         }
 
         /* Плавные анимации */
@@ -41,25 +43,44 @@
             opacity: 0;
         }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8; 
         }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+    <header class="bg-white/95 backdrop-blur-sm shadow-sm sticky top-0 z-40 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="text-center md:text-left">
                 <h1 class="text-4xl md:text-5xl font-semibold tracking-wide text-gray-900">Мария Калугина</h1>
-                <p class="text-gray-500 mt-2 font-light tracking-widest uppercase text-sm">Художник • Преподаватель</p>
+                <p class="text-gray-500 mt-1 font-light tracking-widest uppercase text-xs sm:text-sm">Художник • Преподаватель</p>
             </div>
             
-            <div class="flex items-center gap-6">
-                <a href="#gallery-section" class="text-gray-600 hover:text-gray-900 transition-colors">Галерея</a>
-                <a href="#about-section" class="text-gray-600 hover:text-gray-900 transition-colors">Обо мне</a>
-                <a href="#contact-section" class="px-5 py-2 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-300 rounded-sm">
-                    Связаться
+            <div class="flex flex-wrap justify-center items-center gap-4 sm:gap-6">
+                <button onclick="openUploadModal()" class="flex items-center gap-2 text-indigo-600 hover:text-indigo-800 transition-colors font-medium text-sm">
+                    <i data-lucide="plus-circle" class="w-5 h-5"></i>
+                    <span class="hidden sm:inline">Добавить картину</span>
+                </button>
+                <a href="#gallery-section" class="text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider">Галерея</a>
+                <a href="#about-section" class="text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider">Обо мне</a>
+                <a href="#contact-section" class="px-5 py-2 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-300 rounded-sm text-sm uppercase tracking-wider">
+                    Связь
                 </a>
             </div>
         </div>
@@ -67,154 +88,213 @@
 
     <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
         
-        <section id="gallery-section" class="mb-20">
+        <section id="gallery-section" class="mb-24">
             <div class="flex justify-between items-end mb-10 border-b border-gray-200 pb-4">
-                <h2 class="text-3xl font-serif italic text-gray-800">Избранные работы</h2>
+                <h2 class="text-3xl md:text-4xl font-serif italic text-gray-800">Избранные работы</h2>
             </div>
 
-            <!-- Контейнер для сетки картин -->
+            <!-- Контейнер для картин -->
             <div id="gallery" class="masonry-grid">
-                <!-- Картины будут добавлены сюда через JavaScript -->
+                <!-- Картины генерируются скриптом -->
             </div>
         </section>
 
-        <section id="about-section" class="mb-20 bg-white p-8 md:p-12 shadow-sm rounded-sm">
-            <div class="flex flex-col md:flex-row gap-12 items-center">
+        <section id="about-section" class="mb-20 bg-white p-8 md:p-16 shadow-sm rounded-sm relative overflow-hidden">
+            <!-- Декоративный элемент -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-gray-50 rounded-full mix-blend-multiply filter blur-3xl opacity-70 transform translate-x-1/2 -translate-y-1/2"></div>
+            
+            <div class="flex flex-col md:flex-row gap-12 items-center relative z-10">
                 <div class="md:w-2/3">
-                    <h2 class="text-3xl font-serif italic text-gray-800 mb-6">О художнике</h2>
-                    <p class="text-gray-600 leading-relaxed mb-4">
+                    <h2 class="text-3xl md:text-4xl font-serif italic text-gray-800 mb-6">О художнике</h2>
+                    <p class="text-gray-600 leading-relaxed mb-6 text-lg">
                         Мария Владимировна Калугина — профессиональный художник и преподаватель детской художественной школы. В своих работах она мастерски сочетает классическую технику с глубоким эмоциональным наполнением.
                     </p>
-                    <p class="text-gray-600 leading-relaxed">
-                        Её полотна охватывают широкий спектр жанров: от нежных цветочных натюрмортов и лиричных пейзажей родного края до выразительных портретов и философских, фантазийных сюжетов. Мария не только создает искусство, но и с любовью передает свои знания новому поколению юных художников.
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        Её полотна охватывают широкий спектр жанров: от нежных цветочных натюрмортов и лиричных пейзажей родного края до выразительных портретов и философских, фантазийных сюжетов. Мария не только создает искусство, но и с любовью передает свои знания новому поколению юных художников, помогая им найти свой уникальный стиль.
                     </p>
                 </div>
                 <div class="md:w-1/3 flex justify-center">
-                    <div class="w-48 h-48 bg-gray-100 rounded-full flex items-center justify-center border-4 border-white shadow-lg overflow-hidden">
-                        <i data-lucide="palette" class="w-20 h-20 text-gray-300"></i>
+                    <div class="w-56 h-56 bg-gray-50 rounded-full flex items-center justify-center border-8 border-white shadow-xl overflow-hidden relative group">
+                        <i data-lucide="palette" class="w-24 h-24 text-gray-300 group-hover:scale-110 transition-transform duration-500"></i>
                     </div>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer id="contact-section" class="bg-gray-900 text-white py-16">
+    <footer id="contact-section" class="bg-gray-900 text-white py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl font-serif italic mb-8">Связаться со мной</h2>
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+            <h2 class="text-4xl font-serif italic mb-12">Связаться со мной</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-10 md:gap-24">
                 
-                <a href="tel:+79279021657" class="group flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                        <i data-lucide="phone" class="w-6 h-6"></i>
+                <a href="tel:+79279021657" class="group flex flex-col items-center gap-4 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all">
+                        <i data-lucide="phone" class="w-7 h-7"></i>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-400 mb-1">Телефон / Мессенджеры</p>
-                        <p class="text-lg font-medium">+7 (927) 902-16-57</p>
+                        <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Телефон / Мессенджеры</p>
+                        <p class="text-xl font-medium tracking-wide">+7 (927) 902-16-57</p>
                     </div>
                 </a>
 
-                <a href="mailto:artimpat@gmail.com" class="group flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform duration-300">
-                    <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
-                        <i data-lucide="mail" class="w-6 h-6"></i>
+                <a href="mailto:artimpat@gmail.com" class="group flex flex-col items-center gap-4 hover:-translate-y-2 transition-transform duration-300">
+                    <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 group-hover:shadow-[0_0_20px_rgba(255,255,255,0.2)] transition-all">
+                        <i data-lucide="mail" class="w-7 h-7"></i>
                     </div>
                     <div>
-                        <p class="text-sm text-gray-400 mb-1">Электронная почта</p>
-                        <p class="text-lg font-medium">artimpat@gmail.com</p>
+                        <p class="text-sm text-gray-400 mb-1 uppercase tracking-wider">Электронная почта</p>
+                        <p class="text-xl font-medium tracking-wide">artimpat@gmail.com</p>
                     </div>
                 </a>
 
             </div>
             
-            <div class="mt-16 pt-8 border-t border-white/10 text-gray-400 text-sm">
-                &copy; <span id="year"></span> Мария Калугина. Все права защищены.
+            <div class="mt-20 pt-8 border-t border-white/10 text-gray-500 text-sm">
+                &copy; <span id="year"></span> Мария Калугина. Портфолио художника.
             </div>
         </div>
     </footer>
 
+    <!-- Модальное окно загрузки картин -->
+    <div id="uploadModal" class="fixed inset-0 z-50 bg-black/60 hidden items-center justify-center p-4 backdrop-blur-sm opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-2xl w-full max-w-md p-6 relative transform scale-95 transition-transform duration-300" id="uploadModalContent">
+            <button onclick="closeUploadModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-800 transition-colors">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            <h3 class="text-2xl font-serif text-gray-900 mb-2">Добавить картину</h3>
+            
+            <div class="bg-blue-50 text-blue-800 text-sm p-4 rounded-md mb-6 border border-blue-100 leading-relaxed">
+                <i data-lucide="info" class="inline w-4 h-4 mr-1 mb-1"></i>
+                <b>Важно:</b> Так как сайт работает на GitHub Pages, картины, добавленные здесь, сохраняются только в памяти <i>этого браузера</i>. <br><br>
+                Чтобы добавить картину навсегда, загрузите фото на сам GitHub (в репозиторий) и впишите её название в файл <code>index.html</code>.
+            </div>
+
+            <form id="uploadForm" class="space-y-5" onsubmit="handleUpload(event)">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Название картины</label>
+                    <input type="text" id="paintingTitle" required class="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition-shadow" placeholder="Например: Осенний лес">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Фотография</label>
+                    <input type="file" id="paintingFile" accept="image/*" required class="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100 transition-colors">
+                </div>
+                <button type="submit" class="w-full bg-indigo-600 text-white py-3 rounded-md hover:bg-indigo-700 transition-colors font-medium shadow-sm">
+                    Сохранить в браузере
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Кастомный Alert (вместо системного) -->
+    <div id="customAlert" class="fixed inset-0 z-[70] bg-black/50 hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-lg shadow-xl p-6 max-w-sm w-full text-center transform scale-95 transition-transform duration-300" id="customAlertContent">
+            <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4" id="alertIconContainer">
+                <i data-lucide="check" class="w-8 h-8 text-green-600" id="alertIcon"></i>
+            </div>
+            <p id="alertMessage" class="text-gray-800 mb-6 text-lg"></p>
+            <button onclick="closeCustomAlert()" class="bg-gray-900 text-white px-6 py-2 rounded-md hover:bg-gray-800 transition-colors w-full">
+                Понятно
+            </button>
+        </div>
+    </div>
+
     <script>
-        // Инициализация иконок
+        // Инициализируем иконки
         lucide.createIcons();
         document.getElementById('year').textContent = new Date().getFullYear();
 
-        // Данные картин, использующие предоставленные вами изображения из Googleusercontent
-        const mockPaintings = [
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/f98s507ndp4p", title: "Пионы" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/4m83j142k3t8", title: "Березовая роща" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/w87n6y0sh6d", title: "Храм" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/p8ywe7e366z8", title: "Зимняя деревня" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/4b17y578h4d1", title: "Космос в глазах" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/n8u4r1s0x0b8", title: "Маки" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/u5k6v2e0p7j1", title: "Памятник Ленину" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/y2n4m1w7c2d8", title: "Пленэр у церкви" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/t6h3q1w7b3v8", title: "Единорог над городом" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/k4b5r1x8n2t1", title: "Памятник Ленину (Ракурс 2)" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/v9s1d7x6q4t3", title: "Взгляд Вселенной" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/z4a6y2r1x8j9", title: "Зимний вечер" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/l8o2j7t3n6h4", title: "Портрет при свечах" },
-            { url: "https://generativelanguage.googleapis.com/v1beta/files/c2v8n4x1b7m5", title: "Юная леди" }
+        // Базовый URL вашего репозитория на GitHub (чтобы загружать напрямую)
+        // Ссылка формата: raw.githubusercontent.com/[пользователь]/[репозиторий]/[ветка]/
+        const repoBaseUrl = "https://raw.githubusercontent.com/dimakalugin1988/-/main/";
+
+        // Исходные картины, загруженные на GitHub
+        const initialPaintings = [
+            { url: repoBaseUrl + "IMG_20260824_162312.jpg", title: "Пионы в цвету" },
+            { url: repoBaseUrl + "IMG_20260827_125615.jpg", title: "Березовая роща" },
+            { url: repoBaseUrl + "IMG_20260824_162118.jpg", title: "У стен древнего храма" },
+            { url: repoBaseUrl + "IMG_20260920_212354.jpg", title: "Зимняя сказка" },
+            { url: repoBaseUrl + "IMG_20260920_212540.jpg", title: "Взгляд Вселенной" },
+            { url: repoBaseUrl + "2025-11-22%2012-47-30.jpg", title: "Красные маки" }, // %20 вместо пробела
+            { url: repoBaseUrl + "IMG_20260517_131849.jpg", title: "Памятник Ленину" },
+            { url: repoBaseUrl + "IMG_20260608_142841.jpg", title: "Пленэр у церкви" },
+            { url: repoBaseUrl + "IMG_20260824_162224.jpg", title: "Единорог над городом" },
+            { url: repoBaseUrl + "IMG_20260517_131847.jpg", title: "Площадь города" },
+            { url: repoBaseUrl + "IMG_20260920_212540_2.jpg", title: "Космический кот" },
+            { url: repoBaseUrl + "IMG_20260920_212354_2.jpg", title: "Снежная деревня" },
+            { url: repoBaseUrl + "IMG_20260920_212226.jpg", title: "Портрет при свечах" },
+            { url: repoBaseUrl + "IMG_20260827_130352.jpg", title: "Юная леди" },
+            { url: repoBaseUrl + "IMG_20260827_125615_2.jpg", title: "Светлая роща" }
         ];
 
-        function renderMockGallery() {
+        // Глобальный массив всех картин (исходные + добавленные пользователем локально)
+        let allPaintings = [...initialPaintings];
+
+        function renderGallery() {
             const gallery = document.getElementById('gallery');
             gallery.innerHTML = '';
             
-            mockPaintings.forEach((painting, index) => {
+            // Загружаем локальные картины из памяти браузера
+            try {
+                const savedLocal = JSON.parse(localStorage.getItem('my_local_paintings') || '[]');
+                allPaintings = [...savedLocal, ...initialPaintings]; // Новые сверху
+            } catch (e) {
+                console.error("Ошибка чтения localStorage", e);
+            }
+            
+            allPaintings.forEach((painting, index) => {
                 const item = document.createElement('div');
-                item.className = 'masonry-item bg-white p-2 shadow-sm hover:shadow-md transition-all duration-300 rounded-sm cursor-pointer group fade-in';
-                item.style.animationDelay = `${index * 0.1}s`;
+                item.className = 'masonry-item bg-white p-2 sm:p-3 shadow-sm hover:shadow-xl transition-all duration-300 rounded-sm cursor-pointer group fade-in relative';
+                item.style.animationDelay = `${(index % 10) * 0.1}s`;
                 
-                item.onclick = () => openLightbox(painting.url, painting.title);
+                // Если картина локальная, показываем маленький бейдж
+                const localBadge = painting.isLocal ? 
+                    `<div class="absolute top-4 right-4 bg-indigo-600 text-white text-[10px] uppercase font-bold px-2 py-1 rounded shadow-md z-10 pointer-events-none">Локально</div>` : '';
 
+                // Обертка с aspect-ratio не нужна для Masonry, мы просто даем картинке загрузиться
                 item.innerHTML = `
-                    <div class="relative overflow-hidden bg-gray-100">
-                        <!-- Используем aspect-ratio для предотвращения прыжков верстки при загрузке -->
+                    ${localBadge}
+                    <div class="relative overflow-hidden bg-gray-100 rounded-sm">
                         <img src="${painting.url}" alt="${painting.title}" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
                         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                            <i data-lucide="zoom-in" class="text-white w-10 h-10 drop-shadow-md"></i>
                         </div>
                     </div>
-                    <div class="mt-3 text-center py-2">
-                        <h3 class="font-serif text-lg text-gray-800">${painting.title}</h3>
+                    <div class="mt-4 text-center py-2 px-2">
+                        <h3 class="font-serif text-lg md:text-xl text-gray-900">${painting.title}</h3>
                     </div>
                 `;
+                
+                item.onclick = () => openLightbox(painting.url, painting.title);
                 gallery.appendChild(item);
             });
-            // Переинициализация иконок для новых элементов
+            
             lucide.createIcons();
         }
 
         window.openLightbox = function(url, title) {
             const lightbox = document.createElement('div');
             lightbox.id = 'lightbox';
-            lightbox.className = 'fixed inset-0 z-[60] bg-black/95 flex flex-col items-center justify-center p-4 md:p-12 opacity-0 transition-opacity duration-300';
+            lightbox.className = 'fixed inset-0 z-[60] bg-black/95 flex flex-col items-center justify-center p-4 md:p-8 opacity-0 transition-opacity duration-300 backdrop-blur-sm';
             
             lightbox.innerHTML = `
-                <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-white/50 hover:text-white z-10 transition-colors p-2 bg-black/50 rounded-full">
+                <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-white/50 hover:text-white z-10 transition-colors p-2 bg-black/50 hover:bg-black/80 rounded-full">
                     <i data-lucide="x" class="w-8 h-8"></i>
                 </button>
-                <div class="relative max-w-full max-h-[85vh] flex items-center justify-center">
-                     <img src="${url}" alt="${title}" class="max-w-full max-h-[85vh] object-contain shadow-2xl">
+                <div class="relative w-full h-[80vh] flex items-center justify-center">
+                     <img src="${url}" alt="${title}" class="max-w-full max-h-full object-contain shadow-2xl rounded-sm">
                 </div>
-                <p class="text-white font-serif mt-6 text-2xl tracking-wide font-light">${title}</p>
+                <p class="text-white font-serif mt-6 text-2xl md:text-3xl tracking-wide font-light text-center">${title}</p>
             `;
             
             document.body.appendChild(lightbox);
             lucide.createIcons();
-            
-            // Запрещаем скролл страницы
             document.body.style.overflow = 'hidden';
             
-            // Анимация появления
-            requestAnimationFrame(() => {
-                lightbox.classList.remove('opacity-0');
-            });
+            requestAnimationFrame(() => lightbox.classList.remove('opacity-0'));
             
-            // Закрытие по клику вне картинки
             lightbox.addEventListener('click', (e) => {
-                if (e.target === lightbox) closeLightbox();
+                if (e.target === lightbox || e.target.closest('.relative.w-full') === e.target) closeLightbox();
             });
-            
-            // Закрытие по Escape
             document.addEventListener('keydown', handleEscape);
         }
 
@@ -224,18 +304,137 @@
                 lightbox.classList.add('opacity-0');
                 setTimeout(() => {
                     lightbox.remove();
-                    document.body.style.overflow = 'auto'; // Возвращаем скролл
+                    document.body.style.overflow = '';
                 }, 300);
             }
             document.removeEventListener('keydown', handleEscape);
         }
         
-        function handleEscape(e) {
-            if (e.key === 'Escape') closeLightbox();
+        function handleEscape(e) { if (e.key === 'Escape') closeLightbox(); }
+
+        window.openUploadModal = function() {
+            const modal = document.getElementById('uploadModal');
+            const content = document.getElementById('uploadModalContent');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            requestAnimationFrame(() => {
+                modal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            });
+            document.body.style.overflow = 'hidden';
         }
 
-        // Запуск рендера при загрузке страницы
-        document.addEventListener('DOMContentLoaded', renderMockGallery);
+        window.closeUploadModal = function() {
+            const modal = document.getElementById('uploadModal');
+            const content = document.getElementById('uploadModalContent');
+            modal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+                document.body.style.overflow = '';
+                document.getElementById('uploadForm').reset();
+            }, 300);
+        }
+
+        window.showCustomAlert = function(message, isError = false) {
+            const alertModal = document.getElementById('customAlert');
+            const content = document.getElementById('customAlertContent');
+            const msgEl = document.getElementById('alertMessage');
+            const iconContainer = document.getElementById('alertIconContainer');
+            const icon = document.getElementById('alertIcon');
+
+            msgEl.textContent = message;
+            
+            if (isError) {
+                iconContainer.className = 'w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4';
+                icon.setAttribute('data-lucide', 'alert-circle');
+                icon.className = 'w-8 h-8 text-red-600';
+            } else {
+                iconContainer.className = 'w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4';
+                icon.setAttribute('data-lucide', 'check');
+                icon.className = 'w-8 h-8 text-green-600';
+            }
+            lucide.createIcons();
+
+            alertModal.classList.remove('hidden');
+            alertModal.classList.add('flex');
+            requestAnimationFrame(() => {
+                alertModal.classList.remove('opacity-0');
+                content.classList.remove('scale-95');
+            });
+        }
+
+        window.closeCustomAlert = function() {
+            const alertModal = document.getElementById('customAlert');
+            const content = document.getElementById('customAlertContent');
+            alertModal.classList.add('opacity-0');
+            content.classList.add('scale-95');
+            setTimeout(() => {
+                alertModal.classList.add('hidden');
+                alertModal.classList.remove('flex');
+            }, 300);
+        }
+
+        window.handleUpload = function(event) {
+            event.preventDefault();
+            const title = document.getElementById('paintingTitle').value;
+            const fileInput = document.getElementById('paintingFile');
+            const file = fileInput.files[0];
+
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                // Сжимаем картинку перед сохранением, чтобы не переполнить localStorage
+                const img = new Image();
+                img.onload = function() {
+                    const canvas = document.createElement('canvas');
+                    let width = img.width;
+                    let height = img.height;
+                    const MAX_SIZE = 1000; // Максимальная сторона 1000px
+
+                    if (width > height) {
+                        if (width > MAX_SIZE) {
+                            height *= MAX_SIZE / width;
+                            width = MAX_SIZE;
+                        }
+                    } else {
+                        if (height > MAX_SIZE) {
+                            width *= MAX_SIZE / height;
+                            height = MAX_SIZE;
+                        }
+                    }
+
+                    canvas.width = width;
+                    canvas.height = height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Конвертируем в Base64 JPEG с качеством 70%
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.7);
+
+                    try {
+                        const existing = JSON.parse(localStorage.getItem('my_local_paintings') || '[]');
+                        existing.unshift({ url: dataUrl, title: title, isLocal: true }); // Добавляем в начало
+                        localStorage.setItem('my_local_paintings', JSON.stringify(existing));
+                        
+                        closeUploadModal();
+                        renderGallery();
+                        showCustomAlert("Картина успешно сохранена в вашем браузере!");
+                    } catch (err) {
+                        console.error(err);
+                        closeUploadModal();
+                        showCustomAlert("Память браузера переполнена. Пожалуйста, очистите кэш или загрузите фото меньшего размера.", true);
+                    }
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Запуск при загрузке
+        document.addEventListener('DOMContentLoaded', renderGallery);
 
     </script>
 </body>
