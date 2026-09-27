@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мария Калугина | Художник-преподаватель</title>
+    <!-- Подключаем Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключаем иконки Lucide -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Подключаем шрифты Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #fcfbf9;
+            color: #333;
+        }
+        h1, h2, h3, .font-serif {
+            font-family: 'Cormorant Garamond', serif;
+        }
+        
+        /* Стили для Masonry сетки */
+        .masonry-grid {
+            column-count: 1;
+            column-gap: 1.5rem;
+        }
+        @media (min-width: 640px) { .masonry-grid { column-count: 2; } }
+        @media (min-width: 1024px) { .masonry-grid { column-count: 3; } }
+        @media (min-width: 1280px) { .masonry-grid { column-count: 4; } }
+        
+        .masonry-item {
+            break-inside: avoid;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Плавные анимации */
+        .fade-in {
+            animation: fadeIn 0.8s ease-in forwards;
+            opacity: 0;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h1 class="text-4xl md:text-5xl font-semibold tracking-wide text-gray-900">Мария Калугина</h1>
+                <p class="text-gray-500 mt-2 font-light tracking-widest uppercase text-sm">Художник • Преподаватель</p>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <a href="#gallery-section" class="text-gray-600 hover:text-gray-900 transition-colors">Галерея</a>
+                <a href="#about-section" class="text-gray-600 hover:text-gray-900 transition-colors">Обо мне</a>
+                <a href="#contact-section" class="px-5 py-2 border border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white transition-colors duration-300 rounded-sm">
+                    Связаться
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+        
+        <section id="gallery-section" class="mb-20">
+            <div class="flex justify-between items-end mb-10 border-b border-gray-200 pb-4">
+                <h2 class="text-3xl font-serif italic text-gray-800">Избранные работы</h2>
+            </div>
+
+            <!-- Контейнер для сетки картин -->
+            <div id="gallery" class="masonry-grid">
+                <!-- Картины будут добавлены сюда через JavaScript -->
+            </div>
+        </section>
+
+        <section id="about-section" class="mb-20 bg-white p-8 md:p-12 shadow-sm rounded-sm">
+            <div class="flex flex-col md:flex-row gap-12 items-center">
+                <div class="md:w-2/3">
+                    <h2 class="text-3xl font-serif italic text-gray-800 mb-6">О художнике</h2>
+                    <p class="text-gray-600 leading-relaxed mb-4">
+                        Мария Владимировна Калугина — профессиональный художник и преподаватель детской художественной школы. В своих работах она мастерски сочетает классическую технику с глубоким эмоциональным наполнением.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Её полотна охватывают широкий спектр жанров: от нежных цветочных натюрмортов и лиричных пейзажей родного края до выразительных портретов и философских, фантазийных сюжетов. Мария не только создает искусство, но и с любовью передает свои знания новому поколению юных художников.
+                    </p>
+                </div>
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="w-48 h-48 bg-gray-100 rounded-full flex items-center justify-center border-4 border-white shadow-lg overflow-hidden">
+                        <i data-lucide="palette" class="w-20 h-20 text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact-section" class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-serif italic mb-8">Связаться со мной</h2>
+            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16">
+                
+                <a href="tel:+79279021657" class="group flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                        <i data-lucide="phone" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400 mb-1">Телефон / Мессенджеры</p>
+                        <p class="text-lg font-medium">+7 (927) 902-16-57</p>
+                    </div>
+                </a>
+
+                <a href="mailto:artimpat@gmail.com" class="group flex flex-col items-center gap-3 hover:-translate-y-1 transition-transform duration-300">
+                    <div class="w-14 h-14 bg-white/10 rounded-full flex items-center justify-center group-hover:bg-white/20 transition-colors">
+                        <i data-lucide="mail" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <p class="text-sm text-gray-400 mb-1">Электронная почта</p>
+                        <p class="text-lg font-medium">artimpat@gmail.com</p>
+                    </div>
+                </a>
+
+            </div>
+            
+            <div class="mt-16 pt-8 border-t border-white/10 text-gray-400 text-sm">
+                &copy; <span id="year"></span> Мария Калугина. Все права защищены.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Инициализация иконок
+        lucide.createIcons();
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Данные картин, использующие предоставленные вами изображения из Googleusercontent
+        const mockPaintings = [
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/f98s507ndp4p", title: "Пионы" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/4m83j142k3t8", title: "Березовая роща" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/w87n6y0sh6d", title: "Храм" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/p8ywe7e366z8", title: "Зимняя деревня" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/4b17y578h4d1", title: "Космос в глазах" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/n8u4r1s0x0b8", title: "Маки" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/u5k6v2e0p7j1", title: "Памятник Ленину" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/y2n4m1w7c2d8", title: "Пленэр у церкви" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/t6h3q1w7b3v8", title: "Единорог над городом" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/k4b5r1x8n2t1", title: "Памятник Ленину (Ракурс 2)" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/v9s1d7x6q4t3", title: "Взгляд Вселенной" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/z4a6y2r1x8j9", title: "Зимний вечер" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/l8o2j7t3n6h4", title: "Портрет при свечах" },
+            { url: "https://generativelanguage.googleapis.com/v1beta/files/c2v8n4x1b7m5", title: "Юная леди" }
+        ];
+
+        function renderMockGallery() {
+            const gallery = document.getElementById('gallery');
+            gallery.innerHTML = '';
+            
+            mockPaintings.forEach((painting, index) => {
+                const item = document.createElement('div');
+                item.className = 'masonry-item bg-white p-2 shadow-sm hover:shadow-md transition-all duration-300 rounded-sm cursor-pointer group fade-in';
+                item.style.animationDelay = `${index * 0.1}s`;
+                
+                item.onclick = () => openLightbox(painting.url, painting.title);
+
+                item.innerHTML = `
+                    <div class="relative overflow-hidden bg-gray-100">
+                        <!-- Используем aspect-ratio для предотвращения прыжков верстки при загрузке -->
+                        <img src="${painting.url}" alt="${painting.title}" class="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <i data-lucide="zoom-in" class="text-white w-8 h-8"></i>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center py-2">
+                        <h3 class="font-serif text-lg text-gray-800">${painting.title}</h3>
+                    </div>
+                `;
+                gallery.appendChild(item);
+            });
+            // Переинициализация иконок для новых элементов
+            lucide.createIcons();
+        }
+
+        window.openLightbox = function(url, title) {
+            const lightbox = document.createElement('div');
+            lightbox.id = 'lightbox';
+            lightbox.className = 'fixed inset-0 z-[60] bg-black/95 flex flex-col items-center justify-center p-4 md:p-12 opacity-0 transition-opacity duration-300';
+            
+            lightbox.innerHTML = `
+                <button onclick="closeLightbox()" class="absolute top-4 right-4 md:top-8 md:right-8 text-white/50 hover:text-white z-10 transition-colors p-2 bg-black/50 rounded-full">
+                    <i data-lucide="x" class="w-8 h-8"></i>
+                </button>
+                <div class="relative max-w-full max-h-[85vh] flex items-center justify-center">
+                     <img src="${url}" alt="${title}" class="max-w-full max-h-[85vh] object-contain shadow-2xl">
+                </div>
+                <p class="text-white font-serif mt-6 text-2xl tracking-wide font-light">${title}</p>
+            `;
+            
+            document.body.appendChild(lightbox);
+            lucide.createIcons();
+            
+            // Запрещаем скролл страницы
+            document.body.style.overflow = 'hidden';
+            
+            // Анимация появления
+            requestAnimationFrame(() => {
+                lightbox.classList.remove('opacity-0');
+            });
+            
+            // Закрытие по клику вне картинки
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) closeLightbox();
+            });
+            
+            // Закрытие по Escape
+            document.addEventListener('keydown', handleEscape);
+        }
+
+        window.closeLightbox = function() {
+            const lightbox = document.getElementById('lightbox');
+            if (lightbox) {
+                lightbox.classList.add('opacity-0');
+                setTimeout(() => {
+                    lightbox.remove();
+                    document.body.style.overflow = 'auto'; // Возвращаем скролл
+                }, 300);
+            }
+            document.removeEventListener('keydown', handleEscape);
+        }
+        
+        function handleEscape(e) {
+            if (e.key === 'Escape') closeLightbox();
+        }
+
+        // Запуск рендера при загрузке страницы
+        document.addEventListener('DOMContentLoaded', renderMockGallery);
+
+    </script>
+</body>
+</html>
